@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+	<testsuite errors="0" failures="5" name="RestAPI.tests.EventTestCase-20191004103756" skipped="0" tests="5" time="0.068">
+		<testcase classname="RestAPI.tests.EventTestCase" name="test_actors_by_total_number_of_events" time="0.024">
+			<failure message="404 != 200" type="AssertionError">
+<![CDATA[Traceback (most recent call last):
+  File "/projects/challenge/RestAPI/tests.py", line 135, in test_actors_by_total_number_of_events
+    self.assertEqual(res.status_code, row['response']['status_code'])
+AssertionError: 404 != 200
+]]>			</failure>
+		</testcase>
+		<testcase classname="RestAPI.tests.EventTestCase" name="test_get_actors_by_streak" time="0.010">
+			<failure message="404 != 200" type="AssertionError">
+<![CDATA[Traceback (most recent call last):
+  File "/projects/challenge/RestAPI/tests.py", line 157, in test_get_actors_by_streak
+    self.assertEqual(res.status_code, row['response']['status_code'])
+AssertionError: 404 != 200
+]]>			</failure>
+		</testcase>
+		<testcase classname="RestAPI.tests.EventTestCase" name="test_get_all_events" time="0.010">
+			<failure message="404 != 200" type="AssertionError">
+<![CDATA[Traceback (most recent call last):
+  File "/projects/challenge/RestAPI/tests.py", line 48, in test_get_all_events
+    self.assertEqual(res.status_code, row['response']['status_code'])
+AssertionError: 404 != 200
+]]>			</failure>
+		</testcase>
+		<testcase classname="RestAPI.tests.EventTestCase" name="test_get_events_by_actor_id" time="0.011">
+			<failure message="404 != 200" type="AssertionError">
+<![CDATA[Traceback (most recent call last):
+  File "/projects/challenge/RestAPI/tests.py", line 76, in test_get_events_by_actor_id
+    self.assertEqual(res.status_code, row['response']['status_code'])
+AssertionError: 404 != 200
+]]>			</failure>
+		</testcase>
+		<testcase classname="RestAPI.tests.EventTestCase" name="test_update_actor_avatar_url" time="0.013">
+			<failure message="404 != 200" type="AssertionError">
+<![CDATA[Traceback (most recent call last):
+  File "/projects/challenge/RestAPI/tests.py", line 107, in test_update_actor_avatar_url
+    self.assertEqual(res.status_code, row['response']['status_code'])
+AssertionError: 404 != 200
+]]>			</failure>
+		</testcase>
+		<system-out>
+<![CDATA[]]>		</system-out>
+		<system-err>
+<![CDATA[]]>		</system-err>
+	</testsuite>
+</testsuites>
