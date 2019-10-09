@@ -11,10 +11,13 @@ urlpatterns = [
 ]
 
 urlpatterns += [
-    url('^events', views.Event),
-    url('^events/actors/<int:pk>'),
-    url('^actors'),
-    url('^repos')
+    url(r'^events', views.ListCreateEvent.as_view()),
+    url(r'^events/(?P<id>[0-9]+)/$', views.RetrieveUpdateDestroyEvent.as_view()),
+    url(r'^events/actors/(?P<id>[0-9]+)/$', views.RetrieveUpdateDestroyEvent.as_view()),
+    url(r'^actors', views.ListCreateActor.as_view()),
+    url(r'^actors/(?P<id>[0-9]+)/$', views.RetrieveUpdateDestroyActor.as_view()),
+    url(r'^repos', views.ListCreateRepo.as_view()),
+    url(r'^repos/(?P<id>[0-9]+)/$', views.RetrieveUpdateDestroyRepo.as_view())
 
 ]
 
