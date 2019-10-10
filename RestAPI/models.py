@@ -29,8 +29,8 @@ class Event(models.Model):
     id = models.IntegerField(unique=True, primary_key=True)
     type = models.CharField(max_length=10)
     created_at = models.DateTimeField()
-    actor = models.ForeignKey(Actor, on_delete=models.SET_NULL, null=True, related_name='actors')
-    repo = models.ForeignKey(Repo, on_delete=models.SET_NULL, null=True, related_name='repos')
+    actor = models.ForeignKey(Actor, on_delete=models.SET_NULL, null=True, related_name='actor')
+    repo = models.ForeignKey(Repo, on_delete=models.SET_NULL, null=True, related_name='repo')
 
     def __str__(self):
         return self.type

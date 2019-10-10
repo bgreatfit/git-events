@@ -16,25 +16,12 @@ class ListCreateActor(generics.ListCreateAPIView):
     def get_queryset(self):
         return Actor.objects.all()
 
-    # def perform_create(self, serializer):
-    #     user = get_object_or_404(
-    #         User, pk=self.request.user.id
-    #     )
-    #     serializer.save(user=user, name=serializer.validated_data['name'])
-
 
 class RetrieveUpdateDestroyActor(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = ActorSerializer
 
-    # def get_queryset(self):
-    #     queryset = Group.objects.filter(pk=self.kwargs.get('pk'))
-    #     return queryset
-    #
-    # def perform_update(self, serializer):
-    #     user = get_object_or_404(
-    #         User, pk=self.request.user.id
-    #     )
-    #     serializer.save(user=user)
+    def get_queryset(self):
+        return Actor.objects.all()
 
 
 class ListCreateRepo(generics.ListCreateAPIView):
@@ -61,6 +48,8 @@ class ListCreateEvent(generics.ListCreateAPIView):
     serializer_class = EventSerializer
 
     def get_queryset(self):
+        print('Hello')
+        print(self.kwargs)
         return Event.objects.all()
 
     # def perform_create(self, serializer):
@@ -72,7 +61,11 @@ class ListCreateEvent(generics.ListCreateAPIView):
 
 class RetrieveUpdateDestroyEvent(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = EventSerializer
+    lookup_field = 'actor'
 
     def get_queryset(self):
-        return Event.objects.all()
+
+        queryset = Event.objects.filter(actor=self.kwargs.get('actor'))
+        return queryset
+
 

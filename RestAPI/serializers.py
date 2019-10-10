@@ -20,20 +20,20 @@ class RepoSerializer(serializers.ModelSerializer):
 
 
 class EventSerializer(serializers.ModelSerializer):
-    repos = RepoSerializer()
-    actors = ActorSerializer()
+    repo = RepoSerializer()
+    actor = ActorSerializer()
 
     class Meta:
         model = Event
-        fields = ('id', 'type', 'created_at', 'repos', 'actors')
+        fields = ('id', 'type', 'created_at', 'repo', 'actor')
 
     def create(self, validated_data):
         print(validated_data)
-        actors_data = validated_data.pop('actors')
-        repos_data = validated_data.pop('repos')
-        event = Event.objects.create(**validated_data)
-        Actor.objects.create(**actors_data)
-        Repo.objects.create(**repos_data)
+        actors_data = validated_data.pop('actor')
+        repos_data = validated_data.pop('repo')
+        actor = Actor.objects.create(**actors_data)
+        repo = Repo.objects.create(**repos_data)
+        event = Event.objects.create(**validated_data, actor=actor, repo=repo)
         return event
 
 
