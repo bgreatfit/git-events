@@ -6,7 +6,6 @@ from .models import Event, Actor, Repo
 
 
 class ActorSerializer(serializers.ModelSerializer):
-    owner = serializers.ReadOnlyField(source='user.username')
 
     class Meta:
         model = Actor
@@ -14,7 +13,6 @@ class ActorSerializer(serializers.ModelSerializer):
 
 
 class RepoSerializer(serializers.ModelSerializer):
-    owner = serializers.ReadOnlyField(source='user.username')
 
     class Meta:
         model = Actor
@@ -22,12 +20,10 @@ class RepoSerializer(serializers.ModelSerializer):
 
 
 class EventSerializer(serializers.ModelSerializer):
-    owner = serializers.ReadOnlyField(source='user.username')
     repo = RepoSerializer(many=True, read_only=True)
     actor = ActorSerializer(many=True, read_only=True)
 
     class Meta:
         model = Event
         fields = '__all__'
-
 
