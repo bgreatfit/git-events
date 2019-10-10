@@ -15,7 +15,7 @@ urlpatterns += [
     url(r'^events/actors/(?P<id>[0-9]+)/$', views.RetrieveUpdateDestroyEvent.as_view()),
     url(r'^actors', views.ListCreateActor.as_view()),
     url(r'^actors/(?P<id>[0-9]+)/$', views.RetrieveUpdateDestroyActor.as_view()),
-    url(r'^repos', views.ListCreateActor.as_view()),
+    url(r'^repos', views.ListCreateRepo.as_view()),
     url(r'^repos/(?P<id>[0-9]+)/$', views.RetrieveUpdateDestroyRepo.as_view())
 
 ]
