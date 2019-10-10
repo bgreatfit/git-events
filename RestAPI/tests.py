@@ -36,15 +36,22 @@ class EventTestCase(TestCase):
         for ro in self.test_1:
             row = json.loads(ro)
             res = {}
+            print(row)
             if row['request']['method'] == "GET":
                 res = client.get('http://localhost:8000' +
                                  row['request']['url'] + '/')
+                print('get {0}'.format(row['request']['url'] + '/'))
             elif row['request']['method'] == "POST":
                 res = client.post(
                     'http://localhost:8000' + row['request']['url'] + '/', json=row['request']['body'])
+                print('post {0} --- {1}---{2}'.format(row['request']['url'] + '/', row['request']['body'], 'http://localhost:8000' + row['request']['url'] + '/'))
             elif row['request']['method'] == "DELETE":
                 res = client.delete(
                     'http://localhost:8000' + row['request']['url'] + '/')
+                print("delete{0}".format(row['request']['url'] + '/'))
+            print("final  {0}---{1}---{2}==={3}".format(row['request']['method'],row['request']['url'] + '/',
+                                                        res.status_code, row['response']['status_code']))
+
             self.assertEqual(res.status_code, row['response']['status_code'])
             if row['response']['headers'] != {}:
                 self.assertEqual(

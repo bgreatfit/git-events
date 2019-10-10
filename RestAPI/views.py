@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
+
+from django.db.models import Count, Sum
 from rest_framework import viewsets, permissions, generics, status
 
 # Create your views here.
@@ -10,11 +12,19 @@ from .serializers import ActorSerializer, RepoSerializer,EventSerializer
 from .models import Actor, Repo, Event
 
 
+@api_view(['GET'])
+def get_streak(request):
+    actor = Actor.objects.prefetch_related('event').annotate(sum_created_at=Sum('created_at')) \
+        .order_by('-sum_created_at').order_by('-created_at').order_by('login')
+    return Response(data=actor, status=status.HTTP_200_OK)
+
+
 class ListCreateActor(generics.ListCreateAPIView):
     serializer_class = ActorSerializer
 
     def get_queryset(self):
-        return Actor.objects.all()
+        return Actor.objects.annotate(num_event=Count('event'))\
+            .order_by('-num_event').order_by('-created_at').order_by('login')
 
 
 class RetrieveUpdateDestroyActor(generics.RetrieveUpdateDestroyAPIView):
@@ -24,17 +34,12 @@ class RetrieveUpdateDestroyActor(generics.RetrieveUpdateDestroyAPIView):
         return Actor.objects.all()
 
 
+
 class ListCreateRepo(generics.ListCreateAPIView):
     serializer_class = RepoSerializer
 
     def get_queryset(self):
         return Repo.objects.all()
-
-    # def perform_create(self, serializer):
-    #     user = get_object_or_404(
-    #         User, pk=self.request.user.id
-    #     )
-    #     serializer.save(user=user, name=serializer.validated_data['name'])
 
 
 class RetrieveUpdateDestroyRepo(generics.RetrieveUpdateDestroyAPIView):
@@ -48,15 +53,7 @@ class ListCreateEvent(generics.ListCreateAPIView):
     serializer_class = EventSerializer
 
     def get_queryset(self):
-        print('Hello')
-        print(self.kwargs)
         return Event.objects.all()
-
-    # def perform_create(self, serializer):
-    #     user = get_object_or_404(
-    #         User, pk=self.request.user.id
-    #     )
-    #     serializer.save(user=user, name=serializer.validated_data['name'])
 
 
 class RetrieveUpdateDestroyEvent(generics.RetrieveUpdateDestroyAPIView):
@@ -67,5 +64,13 @@ class RetrieveUpdateDestroyEvent(generics.RetrieveUpdateDestroyAPIView):
 
         queryset = Event.objects.filter(actor=self.kwargs.get('actor'))
         return queryset
+
+
+@api_view(['DELETE'])
+def destroy_event(request):
+    event = Event.objects.all().delete()
+    return Response(data={"detail": event}, status=status.HTTP_200_OK)
+
+
 
 

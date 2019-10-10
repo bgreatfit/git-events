@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-import uuid
 
 from django.db import models
 
@@ -23,19 +22,20 @@ class Repo(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        ordering = ['name']
+
 
 class Event(models.Model):
     """ Model representing a book """
     id = models.IntegerField(unique=True, primary_key=True)
     type = models.CharField(max_length=10)
     created_at = models.DateTimeField()
-    actor = models.ForeignKey(Actor, on_delete=models.SET_NULL, null=True, related_name='actor')
-    repo = models.ForeignKey(Repo, on_delete=models.SET_NULL, null=True, related_name='repo')
+    actor = models.ForeignKey(Actor, on_delete=models.CASCADE, null=True)
+    repo = models.ForeignKey(Repo, on_delete=models.SET_NULL, null=True, related_name='repos')
 
     def __str__(self):
         return self.type
 
-    class Meta:
-        ordering = ['id']
 
 

@@ -122,4 +122,3 @@ USE_TZ = True
 STATIC_URL = '/static/'
 TEST_RUNNER = 'xmlrunner.extra.djangotestrunner.XMLTestRunner'
 TEST_OUTPUT_FILE_NAME = 'unit.xml'
-APPEND_SLASH = False
