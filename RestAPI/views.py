@@ -14,7 +14,7 @@ from .models import Actor, Repo, Event
 
 @api_view(['GET'])
 def get_streak(request):
-    actor = Actor.objects.prefetch_related('event').annotate(sum_created_at=Sum('created_at')) \
+    actor = Actor.objects.annotate(sum_created_at=Sum('event.created_at')) \
         .order_by('-sum_created_at').order_by('-created_at').order_by('login')
     return Response(data=actor, status=status.HTTP_200_OK)
 
@@ -23,6 +23,7 @@ class ListCreateActor(generics.ListCreateAPIView):
     serializer_class = ActorSerializer
 
     def get_queryset(self):
+
         return Actor.objects.annotate(num_event=Count('event'))\
             .order_by('-num_event').order_by('-created_at').order_by('login')
 
